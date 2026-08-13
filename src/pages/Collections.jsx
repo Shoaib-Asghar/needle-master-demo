@@ -144,7 +144,7 @@ const Collections = () => {
                   </Link>
                   <Link to="/book" className="flex-1">
                     <Button variant="outline" size="sm" className="w-full">
-                      Inquire Fitting
+                      Book Fitting
                     </Button>
                   </Link>
                 </div>

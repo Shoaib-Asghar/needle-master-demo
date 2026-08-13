@@ -4,7 +4,6 @@ import { cn } from './Button';
 const VideoPlayer = ({ src, poster, title, className, autoPlay = true, source = 'local', credit, startTime, endTime }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     if (source === 'local' && videoRef.current && autoPlay) {
@@ -25,13 +24,7 @@ const VideoPlayer = ({ src, poster, title, className, autoPlay = true, source = 
     }
   };
 
-  const toggleMute = () => {
-    if (source === 'YouTube') return;
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
+
 
   return (
     <div className={cn("relative group overflow-hidden bg-secondary w-full h-full", className)}>
@@ -45,19 +38,12 @@ const VideoPlayer = ({ src, poster, title, className, autoPlay = true, source = 
         </div>
       )}
 
-      {/* Credit Overlay */}
-      {credit && (
-        <div className="absolute bottom-4 right-4 z-20 pointer-events-none">
-          <span className="text-xs font-medium tracking-widest uppercase bg-black/60 text-white/80 px-2 py-1 backdrop-blur-md">
-            Source: {credit}
-          </span>
-        </div>
-      )}
+
 
       {source === 'YouTube' ? (
         <div className="w-full h-full pointer-events-auto bg-black relative">
           <iframe 
-            src={`https://www.youtube.com/embed/${src}?autoplay=${autoPlay ? 1 : 0}&mute=${isMuted ? 1 : 0}&loop=1&playlist=${src}&controls=0&modestbranding=1&rel=0&showinfo=0${startTime ? `&start=${startTime}` : ''}${endTime ? `&end=${endTime}` : ''}`}
+            src={`https://www.youtube.com/embed/${src}?autoplay=${autoPlay ? 1 : 0}&mute=1&loop=1&playlist=${src}&controls=0&modestbranding=1&rel=0&showinfo=0${startTime ? `&start=${startTime}` : ''}${endTime ? `&end=${endTime}` : ''}`}
             title={title}
             className="absolute inset-0 w-full h-full object-cover scale-[1.35] pointer-events-none opacity-90" 
             frameBorder="0"
@@ -73,7 +59,7 @@ const VideoPlayer = ({ src, poster, title, className, autoPlay = true, source = 
           src={src}
           poster={poster}
           className="w-full h-full object-cover"
-          muted={isMuted}
+          muted
           playsInline
           loop
           onClick={togglePlay}
@@ -89,12 +75,6 @@ const VideoPlayer = ({ src, poster, title, className, autoPlay = true, source = 
               className="text-xs uppercase tracking-widest font-mono font-medium text-chalk bg-charcoal/80 px-3 py-1.5 border border-brass/40 hover:bg-brass hover:text-charcoal transition-colors"
             >
               {isPlaying ? 'Pause' : 'Play'}
-            </button>
-            <button 
-              onClick={toggleMute} 
-              className="text-xs uppercase tracking-widest font-mono font-medium text-chalk bg-charcoal/80 px-3 py-1.5 border border-brass/40 hover:bg-brass hover:text-charcoal transition-colors"
-            >
-              {isMuted ? 'Unmute Sound' : 'Mute Sound'}
             </button>
           </div>
         </div>

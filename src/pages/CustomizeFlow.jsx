@@ -237,12 +237,12 @@ const CustomizeFlow = () => {
       
       {/* Header */}
       <header className="h-20 border-b border-brass/30 flex items-center justify-between px-6 bg-charcoal text-chalk shrink-0">
-        <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/collections')} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+        <button onClick={() => navigate('/collections')} className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
+          <div className="p-2 group-hover:bg-white/10 rounded-full transition-colors">
             <ChevronLeft size={24} />
-          </button>
+          </div>
           <span className="text-xs font-mono uppercase tracking-wider hidden md:block text-brass">Back to Collections</span>
-        </div>
+        </button>
         <div className="text-xl font-display tracking-widest text-chalk uppercase">NEEDLE MASTER</div>
         <div className="w-20"></div>
       </header>
